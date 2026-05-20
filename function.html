@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #2f2f2f, #5e5e5e, #d9d9d9);
+        }
+
+        .container{
+            width: 420px;
+            padding: 35px;
+            border-radius: 24px;
+
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+
+            border: 1px solid rgba(255,255,255,0.15);
+
+            box-shadow:
+            0 10px 35px rgba(0,0,0,0.35),
+            inset 0 1px 1px rgba(255,255,255,0.2);
+        }
+
+        h1{
+            text-align: center;
+            margin-bottom: 25px;
+            color: #f3f3f3;
+            font-size: 32px;
+            letter-spacing: 1px;
+        }
+
+        .inputs{
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        input{
+            width: 100%;
+            padding: 15px;
+            border: none;
+            outline: none;
+
+            border-radius: 14px;
+
+            background: #ededed;
+            color: #222;
+
+            font-size: 16px;
+
+            box-shadow:
+            inset 2px 2px 6px rgba(0,0,0,0.12),
+            inset -2px -2px 6px rgba(255,255,255,0.7);
+        }
+
+        input::placeholder{
+            color: #666;
+        }
+
+        button{
+            margin-top: 20px;
+            width: 100%;
+            padding: 15px;
+
+            border: none;
+            border-radius: 14px;
+
+            background: linear-gradient(145deg, #9d9d9d, #d8d8d8);
+
+            color: #1f1f1f;
+            font-size: 16px;
+            font-weight: bold;
+
+            cursor: pointer;
+            transition: 0.3s ease;
+
+            box-shadow:
+            4px 4px 12px rgba(0,0,0,0.25),
+            inset 1px 1px 2px rgba(255,255,255,0.6);
+        }
+
+        button:hover{
+            transform: translateY(-2px);
+            background: linear-gradient(145deg, #bdbdbd, #f0f0f0);
+        }
+
+        #result{
+            margin-top: 25px;
+            min-height: 65px;
+
+            padding: 18px;
+
+            border-radius: 16px;
+
+            background: rgba(255,255,255,0.08);
+
+            border: 1px solid rgba(255,255,255,0.12);
+
+            color: white;
+            font-size: 22px;
+            text-align: center;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            box-shadow: inset 0 0 12px rgba(255,255,255,0.05);
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>BMI Checker</h1>
+
+        <div class="inputs">
+
+            <input id="input1" type="text" placeholder="Enter Weight (kg)">   
+
+            <input id="input2" type="text" placeholder="Enter Height (m)">
+
+        </div>
+
+        <button id="bmiCheck" onclick="checkBmi()"> Check BMI</button>
+
+        <div id="result"></div>  
+
+    </div>
+
+</body>
+<script>
+    let input1 = document.getElementById('input1')
+    let input2 = document.getElementById('input2')
+    let result = document.getElementById('result')
+    
+    
+    
+    function checkBmi() {
+        let weight = input1.value.trim()
+        let height = input2.value.trim()
+        let weight1 = Number(weight)
+        let height1 = Number(height)
+        if (weight === '' || height === '') {
+            alert('input is mandatory')
+            result.innerHTML = ''
+        } else if (isNaN(weight) || isNaN(height)) {
+            alert('value must be a number')
+            result.innerHTML = ''
+        } else if (weight1 <= 0 || height1 <= 0) {
+            alert('value must be greater than 0')
+            result.innerHTML = ''
+        } else {
+            let bmi = weight1 / (height1 * height1)
+            // console.log(bmi);
+            if (bmi < 18.5) {
+                // console.log('you no go like start dey chop');
+                result.innerHTML = 'you no go like start dey chop'
+                return
+            }
+            if (bmi > 18.5 && bmi < 25) {
+                //  console.log('you are Normal weight');
+                result.innerHTML = 'you are Normal weight'
+                return
+            }
+            if (bmi > 25 && bmi < 30) {
+                // console.log('you are Overweight');
+                result.innerHTML = 'you are Overweight'
+                return
+            }
+            if (bmi < 40) {
+                // console.log('you no go like enter gym');
+                result.innerHTML = 'you no go like enter gym'
+                return
+            } 
+            
+            result.innerHTML = 'oh boy you dun burst scale'            
+        }
+    }
+</script>
+</html>
